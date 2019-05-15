@@ -27,7 +27,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    connection.query("SELECT * FROM planification.tickets_finish", (err, result) => {
+    connection.query("SELECT * FROM tickets_finish", (err, result) => {
         if (err) {
             throw err;
         }

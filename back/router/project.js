@@ -39,7 +39,7 @@ router.delete('/:id', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    connection.query("SELECT * FROM planification.project_snark", (err, result) => {
+    connection.query("SELECT * FROM project_snark", (err, result) => {
         if (err) {
             throw err;
         }

@@ -1,7 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const connection = require('./db');
-const cors = require('cors')
+const cors = require('cors');
+const config = require('config');
 
 connection.connect((err) => {
     if(err){
@@ -21,8 +22,8 @@ app.use('/managers', require('./router/managers'));
 app.use('/tickets_progress', require('./router/ticketsProgress'));
 app.use('/tickets_finish', require('./router/ticketsFinish'));
 
-app.listen('3000', () => {
-    console.log('server started on port 3000')
+app.listen(config.serverPort, () => {
+    console.log('server started on port ' + config.serverPort)
 })
 
 

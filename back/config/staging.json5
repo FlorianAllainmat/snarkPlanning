@@ -1,0 +1,11 @@
+{
+   serverPort: 22100,
+
+   database: {
+        host: 'localhost',
+        user: 'snark_project_manager',
+        password: 'snark_project_manager',
+        database: 'snark_project_manager'
+   }
+
+}

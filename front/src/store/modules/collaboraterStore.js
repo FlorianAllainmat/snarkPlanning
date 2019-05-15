@@ -2,6 +2,8 @@ import axios from 'axios';
 import connection from '../../helpers/connection';
 import { SET_COLLABORATER } from '../mutations-type';
 
+console.log("collab api: ", connection);
+
 export default {
   state: {
     collaborater : []

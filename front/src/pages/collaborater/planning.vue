@@ -4,12 +4,14 @@
       <div class="col-1">
         <label>Collaborateur</label>
         <select v-model="filterCollab" class="form-control">
+          <option selected></option>
           <option  v-bind:value="collab.id_collaboraters" v-for="collab in collaborater.collaborater" :key="collab.id_collaboraters">
             {{collab.name_collaboraters}}
           </option>
         </select>
         <label>Semaine</label>
         <select v-model="filterWeek" class="form-control">
+          <option selected></option>
           <option v-bind:value="week" v-for="(week, i) in choiceWeek" :key="i">
             {{week}}
           </option>
@@ -85,6 +87,7 @@ export default {
   padding: 1px;
 }
 .nb_ticket {
+  color: white;
   padding: 30px;
   margin: 0px;
   width: 40px;

@@ -2,8 +2,6 @@ import axios from 'axios';
 import connection from '../../helpers/connection';
 import { SET_COLLABORATER } from '../mutations-type';
 
-console.log("collab api: ", connection);
-
 export default {
   state: {
     collaborater : []
@@ -26,6 +24,9 @@ export default {
           name_collaboraters,
           password
         })
+        .then(collaborater => {
+          commit('SET_COLLABORATER', collaborater.data)
+        })
         .catch(function (error) {
           console.log(error);
         });
@@ -33,6 +34,9 @@ export default {
     deleteCollaborater({ commit }, { id_collaboraters }) {
       axios
         .delete(`${connection}collaboraters/${id_collaboraters}`, {})
+        .then(collaborater => {
+          commit('SET_COLLABORATER', collaborater.data)
+        })
         .catch(function (error) {
           console.log(error);
         });
@@ -42,7 +46,7 @@ export default {
       password
     }) {
       axios
-        .post(`${connection}connect`, {name_collaboraters, password})
+        .post(`${connection}collaboraters/connect`, {name_collaboraters, password})
         .catch(function (error) {
           console.log(error);
         })

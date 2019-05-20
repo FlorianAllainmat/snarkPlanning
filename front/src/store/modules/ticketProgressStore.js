@@ -1,6 +1,6 @@
 import axios from 'axios';
 import connection from '../../helpers/connection';
-import { SET_TICKETS_PROGRESS } from '../mutations-type';
+import { SET_TICKETS_PROGRESS, GET_TICKETS_PROGRESS } from '../mutations-type';
 
 export default {
   state: {
@@ -25,11 +25,14 @@ export default {
         week,
     }) {
       axios
-        .post(`${connection}tickets_progress/create`, {
+        .post(`${connection}tickets_progress/`, {
           collaboraters_id_collaboraters,
           project_id_project,
           nb_ticket,
           week,
+        })
+        .then(ticketsProgress => {
+          commit('SET_TICKETS_PROGRESS', ticketsProgress.data)
         })
         .catch(function (error) {
           console.log(error);
@@ -50,6 +53,9 @@ export default {
           nb_ticket,
           week,
         })
+        .then(ticketsProgress => {
+          commit('SET_TICKETS_PROGRESS', ticketsProgress.data)
+        })
         .catch(function(error){
           console.log(error)
         })
@@ -58,6 +64,9 @@ export default {
     deleteLotTickets({ commit }, { id_tickets_progress }) {
       axios
         .delete(`${connection}tickets_progress/${id_tickets_progress}`, {})
+        .then(ticketsProgress => {
+          commit('SET_TICKETS_PROGRESS', ticketsProgress.data)
+        })
         .catch(function (error) {
           console.log(error);
         });
@@ -66,6 +75,6 @@ export default {
   mutations: {
     [SET_TICKETS_PROGRESS](state, ticketsProgress) {
       state.ticketsProgress = ticketsProgress
-    }
+    },
   },
 }

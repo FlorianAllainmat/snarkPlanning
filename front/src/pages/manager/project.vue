@@ -58,11 +58,12 @@ export default {
   },
   computed: {
     ...mapState(['project']),
+
   },
   components: {
   },
   methods: {
-    call(){
+    callProject(){
       this.$store.dispatch("callProject")
     },
     newProject() {
@@ -73,28 +74,16 @@ export default {
         color : this.color,
       }
       this.$store.dispatch("newProject", payload);
-      window.location.reload()
     },
     deleteProject(id) {
       let idProject = {
         id_project : id
       }
       this.$store.dispatch("deleteProject", idProject);
-      window.location.reload()
     },
-    /* putProject(id) {
-      let project = {
-        name : this.name,
-        nb_tickets : this.nb_tickets,
-        id_jira : this.id_jira,
-        id_project : this.id,
-        color : this.color
-      }
-      this.$store.dispatch("putProject", project)
-    } */
   },
   created() {
-    this.call()
+    this.callProject()
   }
 }
 </script>

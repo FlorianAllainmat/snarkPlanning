@@ -9,7 +9,12 @@ router.post('/', (req, res) => {
             console.log(err)
             res.sendStatus(500);
         } else {
-            res.sendStatus(200);
+            connection.query("SELECT * FROM project_snark", (err, result) => {
+                if (err) {
+                    throw err;
+                }
+                res.send(result);
+            })
         }
     });
 });
@@ -33,7 +38,12 @@ router.delete('/:id', (req, res) => {
         if (err) {
             res.sendStatus(500);
         } else {
-            res.sendStatus(200);
+            connection.query("SELECT * FROM project_snark", (err, result) => {
+                if (err) {
+                    throw err;
+                }
+                res.send(result);
+            })
         }
     });
 });

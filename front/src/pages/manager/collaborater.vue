@@ -49,24 +49,27 @@ export default {
   components: {
   },
   methods: {
+    callCollab(){
+      this.$store.dispatch("callCollaborater")
+    },
     newCollaborater() {
       let payload ={
         name_collaboraters : this.name,
         password : this.password,
       }
       this.$store.dispatch("newCollaborater", payload);
-      window.location.reload()
+      this.name = "";
+      this.password = "";
     },
     deleteCollaborater(id) {
       let idCollaborater = {
         id_collaboraters : id
       }
       this.$store.dispatch("deleteCollaborater", idCollaborater);
-      window.location.reload()
     }
   },
   created() {
-    this.$store.dispatch("callCollaborater")
+    this.callCollab()
   }
 }
 </script>

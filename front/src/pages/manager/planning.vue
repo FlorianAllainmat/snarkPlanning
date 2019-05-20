@@ -128,6 +128,11 @@ export default {
   components: {
   },
   methods: {
+    callAll(){
+      this.$store.dispatch("callTicketsProgress")
+      this.$store.dispatch("callProject")
+      this.$store.dispatch("callCollaborater")
+    },
     putWeek(modif) {
       this.week += modif;
     },
@@ -139,14 +144,12 @@ export default {
         week: this.week,
       }
       this.$store.dispatch("newTicketsProgress", payload);
-      window.location.reload()
     },
     deleteLotTickets(id) {
       let idLotTickets = {
         id_tickets_progress : id
       }
       this.$store.dispatch("deleteLotTickets", idLotTickets);
-      window.location.reload()
     },
     upTickets(id, nb){
       nb += 1
@@ -154,8 +157,7 @@ export default {
         id_tickets_progress : id,
         nb_ticket : nb,
       }
-      this.$store.dispatch("putTicketsProgress", idLotTickets)
-      window.location.reload()
+      this.$store.dispatch("putTicketsProgress", idLotTickets);
     },
     downTickets(id, nb){
       nb -= 1
@@ -164,13 +166,10 @@ export default {
         nb_ticket : nb
       }
       this.$store.dispatch("putTicketsProgress", idLotTickets)
-      window.location.reload()
     }
   },
   created() {
-    this.$store.dispatch("callCollaborater")
-    this.$store.dispatch("callProject")
-    this.$store.dispatch("callTicketsProgress")
+    this.callAll()
   }
 }
 </script>
@@ -181,16 +180,12 @@ export default {
   padding: 0px;
   margin: 0px;
 }
-.att1{
-  color: white;
-}
-
 .case_ticket{
   padding: 1px;
 }
 .nb_ticket {
   color : white;
-  padding: 20px;
+  padding: 40px;
   margin: 0px;
 }
 </style>

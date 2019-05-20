@@ -12,7 +12,7 @@
       </div>
       <div class="form-group col-4">
         <label>Password</label>
-        <input v-model="password" type="password" class="form-control" placeholder="Password">
+        <input v-model="password" type="text" class="form-control" placeholder="Password">
       </div>
       <button @click="connectCollab" type="submit" class="btn btn-primary">Login</button>
     </form>
@@ -41,9 +41,9 @@ export default {
         name_collaboraters : this.name,
         password : this.password
       }
-      console.log(payload)
       this.$store.dispatch("connectCollaborater", payload);
-      if(status === 200) {
+      console.log(status)
+      if(status === 204) {
           this.$router.push({
             name: 'collaborater'
           });

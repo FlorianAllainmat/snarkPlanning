@@ -33,6 +33,10 @@ export default {
           nb_tickets,
           color
         })
+        .then(project => {
+          console.log(project)
+          commit('SET_PROJECT', project.data)
+        })
         .catch(function (error) {
           console.log(error);
         });
@@ -51,6 +55,9 @@ export default {
     deleteProject({ commit }, { id_project }) {
       axios
       .delete(`${connection}project/${id_project}`, {
+        })
+        .then(project => {
+          commit('SET_PROJECT', project.data)
         })
         .catch(function (error) {
           console.log(error);

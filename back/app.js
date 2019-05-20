@@ -1,9 +1,11 @@
+// Import 
 const bodyParser = require('body-parser');
 const express = require('express');
 const connection = require('./db');
 const cors = require('cors');
 const config = require('config');
 
+// Connection Server
 connection.connect((err) => {
     if(err){
         throw err; 
@@ -12,16 +14,23 @@ connection.connect((err) => {
 
 const app = express();
 
+// Cors
 app.use(cors())
+
+// BodyParser Configuration
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/project', require('./router/project'));
-app.use('/collaboraters', require('./router/collaboraters'));
-app.use('/managers', require('./router/managers'));
-app.use('/tickets_progress', require('./router/ticketsProgress'));
-app.use('/tickets_finish', require('./router/ticketsFinish'));
 
+// Routes Configuration
+app.use('/project', require('./routes/project'));
+app.use('/collaboraters', require('./routes/collaboraters'));
+app.use('/managers', require('./routes/managers'));
+app.use('/tickets_progress', require('./routes/ticketsProgress'));
+app.use('/tickets_finish', require('./routes/ticketsFinish'));
+
+
+//Launch Server
 app.listen(config.serverPort, () => {
     console.log('server started on port ' + config.serverPort)
 })

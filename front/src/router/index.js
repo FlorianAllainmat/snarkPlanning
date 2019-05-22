@@ -11,6 +11,7 @@ import collaborater from '@/pages/manager/collaborater'
 import Project from '@/pages/manager/project'
 import Planning from '@/pages/manager/planning'
 import Statistic from '@/pages/manager/statistic'
+import Suivi from '@/pages/manager/suivi'
 
 import Collaborater from '@/pages/collaborater/collaborater'
 import PlanningCollaborateur from '@/pages/collaborater/planning'
@@ -42,8 +43,8 @@ export default new Router({
       children:
       [
         {
-          path: 'collaborater',
-          name: 'collaborater',
+          path: 'collaborater-edit',
+          name: 'collaboraterEdit',
           component: collaborater,
         },
         {
@@ -52,14 +53,19 @@ export default new Router({
           component: Project
         },
         {
-          path: 'planning',
-          name: 'planning',
+          path: 'planning-manager',
+          name: 'planningManager',
           component: Planning,
         },
         {
           path: 'statistic',
           name: 'statistic',
           component: Statistic,
+        },
+        {
+          path: 'suivi',
+          name: 'suivi',
+          component: Suivi,
         }
       ]
     },
@@ -70,8 +76,8 @@ export default new Router({
       children:
       [
         {
-          path: 'planning',
-          name: 'planning',
+          path: 'planning-collaborater',
+          name: 'planningCollaborater',
           component: PlanningCollaborateur,
         },
         {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import connection from '../../helpers/connection';
-import { SET_TICKETS_PROGRESS, GET_TICKETS_PROGRESS } from '../mutations-type';
+import { SET_TICKETS_PROGRESS } from '../mutations-type';
 
 export default {
   state: {

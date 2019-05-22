@@ -16,13 +16,15 @@
       </div>
       <button @click="connectCollab" type="submit" class="btn btn-primary">Login</button>
     </form>
-      <button>
-        <router-link to="/collaborater">Login</router-link>
-      </button>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import connection from '@/helpers/connection'
+import { mapState, mapActions, mapMutations } from "vuex";
+
+
 export default {
   name: 'collaborater',
   data () {
@@ -36,28 +38,28 @@ export default {
   components: {
   },
   methods: {
-    connectCollab(){
-      let payload = {
-        name_collaboraters : this.name,
-        password : this.password
-      }
-      this.$store.dispatch("connectCollaborater", payload);
-      console.log(status)
-      if(status === 204) {
-          this.$router.push({
-            name: 'collaborater'
-          });
-        } else {
-          this.$router.push({
-            name: "LoginCollaborater"
-          })
-        }
+    connectCollab({ name_collaboraters = this.name, password = this.password }) {
+      axios
+        .post(`${connection}collaboraters/connect`, { name_collaboraters, password })
+        .then(col => {
+          if(col.data !== null) {
+            this.$router.push({
+              name: 'collaborater'
+            });
+          } else {
+            this.$router.push({
+              name: "LoginCollaborater"
+            })
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     }
   },
   created() {
   }
 }
 </script>
-
 <style scoped>
 </style>

@@ -4,7 +4,8 @@ import { SET_COLLABORATER } from '../mutations-type';
 
 export default {
   state: {
-    collaborater : []
+    collaborater : [],
+    colToken : []
   },
   actions: {
     callCollaborater({ commit }) {
@@ -41,20 +42,10 @@ export default {
           console.log(error);
         });
     },
-    connectCollaborater({ commit }, {
-      name_collaboraters,
-      password
-    }) {
-      axios
-        .post(`${connection}collaboraters/connect`, {name_collaboraters, password})
-        .catch(function (error) {
-          console.log(error);
-        })
-    }
   },
   mutations: {
     [SET_COLLABORATER](state, collaborater) {
       state.collaborater = collaborater
-    }
+    },
   },
 }

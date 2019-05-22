@@ -7,7 +7,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <router-link to="/collaborater/planning" class="nav-item nav-link">Planning</router-link>
+          <router-link to="/collaborater/planning-collaborater" class="nav-item nav-link">Planning</router-link>
           <router-link to="/collaborater/validation-planning" class="nav-item nav-link">Validation planning</router-link>
         </div>
       </div>

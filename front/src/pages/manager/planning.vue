@@ -29,9 +29,9 @@
           <button @click="putWeek(1)" :value="1">+</button>
         </div>
       </div>
-      <div class="col-12">
+      <div>
         <table class="table">
-          <tr v-for="tic in filterTickets" :key="tic.id_tickets_progress">
+          <tr :bgcolor="tic.color" v-for="tic in filterTickets" :key="tic.id_tickets_progress">
             <th :bgcolor="tic.color" class="att1">
                 <div>{{tic.name}}</div>
                 <div>Week:{{tic.week}}</div>
@@ -42,7 +42,11 @@
             </th>
             <th>
               <button @click="upTickets(tic.id_tickets_progress, tic.nb_ticket)">+</button>
-              <button @click="downTickets(tic.id_tickets_progress, tic.nb_ticket)">-</button>
+            </th>
+            <th>
+                <button @click="downTickets(tic.id_tickets_progress, tic.nb_ticket)">-</button>
+            </th>
+            <th>
               <button @click="deleteLotTickets(tic.id_tickets_progress)">Sup</button>
             </th>
           </tr>
@@ -96,7 +100,7 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
-  name: 'planning',
+  name: 'planningManager',
   data () {
     return {
       choiceWeek : 53,
@@ -177,15 +181,19 @@ export default {
 <style scoped>
 
 .table {
-  padding: 0px;
-  margin: 0px;
+  margin: 80px 20px;
+}
+.att1{
+  color: white;
 }
 .case_ticket{
-  padding: 1px;
+  border: 1px solid white;
 }
 .nb_ticket {
+  vertical-align: center;
+  border : none;
   color : white;
-  padding: 40px;
+  padding: 20px;
   margin: 0px;
 }
 </style>

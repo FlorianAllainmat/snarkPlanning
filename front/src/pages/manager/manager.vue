@@ -7,10 +7,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <router-link to="/manager/collaborater" class="nav-item nav-link">Collaborateur</router-link>
-          <router-link to="/manager/planning" class="nav-item nav-link">Planning</router-link>
+          <router-link to="/manager/collaborater-edit" class="nav-item nav-link">Collaborateur</router-link>
+          <router-link to="/manager/planning-manager" class="nav-item nav-link">Planning</router-link>
           <router-link to="/manager/project" class="nav-item nav-link">Projet</router-link>
           <router-link to="/manager/statistic" class="nav-item nav-link">Statistique</router-link>
+          <router-link to="/manager/suivi" class="nav-item nav-link">Suivi</router-link>
         </div>
       </div>
     </nav>

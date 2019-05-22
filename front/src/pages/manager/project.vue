@@ -7,7 +7,6 @@
           <th scope="col-3">Id_Jira</th>
           <th scope="col-3">Nombre de Tickets</th>
           <th scope="col-1"></th>
-          <th scope="col-1"></th>
         </tr>
       </thead>
       <tbody>
@@ -15,7 +14,6 @@
           <td>{{pro.name}}</td>
           <td>{{pro.id_jira}}</td>
           <td>{{pro.nb_tickets}}</td>
-          <td><button @click="putProject(pro.id_project)">Modifier</button></td>
           <td><button @click="deleteProject(pro.id_project)">Supprimer</button></td>
         </tr>
       </tbody>

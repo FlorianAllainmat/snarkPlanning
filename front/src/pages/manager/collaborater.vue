@@ -1,5 +1,5 @@
 <template>
-  <div class="collaborater">
+  <div class="collaboraterEdit">
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -36,7 +36,7 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
-  name: 'collaborater',
+  name: 'collaboraterEdit',
   data () {
     return {
       name: "",

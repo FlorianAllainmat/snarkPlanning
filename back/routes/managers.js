@@ -4,10 +4,6 @@ const connection = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
-//login managers
-
-
 router.get('/', (req, res) => {
     connection.query("SELECT * FROM `managers` WHERE 1", (err, result) => {
         if (err) {
@@ -16,6 +12,32 @@ router.get('/', (req, res) => {
         res.send(result);
     })
 })
+
+//login managers
+
+router.post('/connect', (req, res) => {
+    connection.query("SELECT * FROM `managers` WHERE 1", (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.log(result)
+            const user = result.find(us => us.name_manager === req.body.name_manager);
+            console.log(user)
+            if (user) {
+                const token = jwt.sign({
+                    sub: user.id
+                }, "secretOrkey");
+                const {
+                    password,
+                    ...userwithoutPassword
+                } = user;
+                res.send({
+                    ...userwithoutPassword,
+                    token
+                })
+            }
+    })
+});
 
 // Creation Member
 

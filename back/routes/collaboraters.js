@@ -1,8 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const connection = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+const router = express.Router();
 
 //List Member
 router.get('/', (req, res) => {
@@ -15,6 +16,24 @@ router.get('/', (req, res) => {
 })
 
 //Login Member
+router.post('/connect', (req, res) => {
+    connection.query("SELECT * FROM `collaboraters` WHERE 1", (err, result) => {
+        if (err) {
+            throw err;
+        }
+        const user = result.find(us => us.name_collaboraters === req.body.name_collaboraters);
+        if (user) {
+            const token = jwt.sign({ sub: user.id },"secretOrkey");
+            const { password, ...userwithoutPassword } = user;
+            res.send({
+                ...userwithoutPassword,
+                token
+                }
+            )
+        }
+
+    })
+});
 
 //Creation Member
 router.post('/create', (req, res) => {

@@ -1,5 +1,6 @@
 // Import 
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser')
 const express = require('express');
 const connection = require('./db');
 const cors = require('cors');
@@ -14,8 +15,8 @@ connection.connect((err) => {
 
 const app = express();
 
-// Cors
-app.use(cors())
+app.use(cookieParser());
+app.use(cors());
 
 // BodyParser Configuration
 app.use(bodyParser.json());

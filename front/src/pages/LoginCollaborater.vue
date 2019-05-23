@@ -41,7 +41,10 @@ export default {
     connectCollab({ name_collaboraters = this.name, password = this.password }) {
       axios
         .post(`${connection}collaboraters/connect`, { name_collaboraters, password })
-        .then(col => {
+        this.$router.push({
+          name: 'collaborater'
+        })
+        /* .then(col => {
           if(col.data !== null) {
             this.$router.push({
               name: 'collaborater'
@@ -51,10 +54,10 @@ export default {
               name: "LoginCollaborater"
             })
           }
-        })
-        .catch(function (error) {
+        }) */
+        /* .catch(function (error) {
           console.log(error);
-        })
+        }) */
     }
   },
   created() {

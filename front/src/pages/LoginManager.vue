@@ -41,7 +41,10 @@ export default {
     connectManager({ name_manager = this.name, password = this.password }) {
       axios
         .post(`${connection}managers/connect`, { name_manager, password })
-        .then(man => {
+        this.$router.push({
+          name: 'manager'
+        })
+        /* .then(man => {
           if(man.data !== null) {
             this.$router.push({
               name: 'manager'
@@ -51,10 +54,10 @@ export default {
               name: "LoginManager"
             })
           }
-        })
-        .catch(function (error) {
+        }) */
+        /* .catch(function (error) {
           console.log(error);
-        })
+        }) */
     }
   },
   created() {

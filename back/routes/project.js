@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../db');
+const isAuth = require('../helpers/auth');
 
-router.post('/', (req, res) => {
+router.post('/', isAuth, (req, res) => {
     const newProject = req.body;
     connection.query('INSERT INTO project_snark SET ?', newProject, (err) => {
         if (err) {
@@ -19,7 +20,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', isAuth, (req, res) => {
     const idProject = req.params.id;
     const formData = req.body;
     connection.query('UPDATE project_snark SET ? WHERE id_project = ?', [formData, idProject], (err) => {
@@ -32,7 +33,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAuth, (req, res) => {
     const idProject = req.params.id;
     connection.query('DELETE FROM project_snark WHERE id_project = ?', [idProject], (err) => {
         if (err) {
@@ -48,7 +49,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/', isAuth, (req, res) => {
     connection.query("SELECT * FROM project_snark", (err, result) => {
         if (err) {
             throw err;

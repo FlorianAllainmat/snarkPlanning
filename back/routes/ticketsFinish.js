@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../db');
+const isAuth = require('../helpers/auth');
 
-router.post('/', (req, res) => {
+router.post('/', isAuth, (req, res) => {
     const newTicket = req.body;
     connection.query('INSERT INTO tickets_finish SET ?', newTicket, (err) => {
         if (err) {
@@ -19,7 +20,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', isAuth, (req, res) => {
     const idTicketsFinish = req.params.id;
     const formData = req.body;
     connection.query('UPDATE tickets_finish SET ? WHERE id_tickets_finish = ?', [formData, idTicketsFinish], (err) => {
@@ -36,17 +37,16 @@ router.put('/:id', (req, res) => {
         }
     });
 });
-
-router.get('/', (req, res) => {
+router.get('/', isAuth, (req, res) => {
     connection.query("SELECT * FROM tickets_finish as tf INNER JOIN project_snark as ps ON tf.project_id_project = ps.id_project INNER JOIN collaboraters as co ON tf.collaboraters_id_collaboraters = co.id_collaboraters", (err, result) => {
         if (err) {
-            throw err;
+            console.log(err);
         }
         res.send(result);
     })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAuth, (req, res) => {
     const idLotTickets = req.params.id;
     connection.query('DELETE FROM tickets_finish WHERE id_tickets_finish = ?', [idLotTickets], (err) => {
         if (err) {

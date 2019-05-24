@@ -3,6 +3,7 @@ const router = express.Router();
 const connection = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 
 router.get('/', (req, res) => {
     connection.query("SELECT * FROM `managers` WHERE 1", (err, result) => {
@@ -16,30 +17,28 @@ router.get('/', (req, res) => {
 //login managers
 
 router.post('/connect', (req, res) => {
-    connection.query("SELECT * FROM `managers` WHERE 1", (err, result) => {
+    const name = req.body.name_manager
+    connection.query("SELECT * FROM `managers` WHERE name_manager = ?", name, (err, result) => {
         if (err) {
-            throw err;
+            console.log(err);
         }
-        console.log(result)
-            const user = result.find(us => us.name_manager === req.body.name_manager);
-            console.log(user)
-            if (user) {
-                const token = jwt.sign({
-                    sub: user.id
-                }, "secretOrkey");
-                const {
-                    password,
-                    ...userwithoutPassword
-                } = user;
-                res.send({
-                    ...userwithoutPassword,
-                    token
-                })
-            }
+        let passwordIsValid = bcrypt.compareSync(req.body.password, result[0].password)
+        if (passwordIsValid) {
+            const token = jwt.sign({
+                sub: result[0].id_managers
+            }, config.secret, {
+                expiresIn: 86400
+            });
+            res.send({
+                name,
+                token
+            })
+        }
+
     })
 });
 
-// Creation Member
+// Creation Manager
 
 router.post('/create', (req, res) => {
     const newManager = req.body;

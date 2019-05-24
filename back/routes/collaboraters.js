@@ -2,11 +2,13 @@ const express = require('express');
 const connection = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const isAuth = require('../helpers/auth');
+const config = require('config')
 
 const router = express.Router();
 
 //List Member
-router.get('/', (req, res) => {
+router.get('/', isAuth, (req, res) => {
     connection.query("SELECT * FROM `collaboraters` WHERE 1", (err, result) => {
         if (err) {
             throw err;
@@ -17,26 +19,29 @@ router.get('/', (req, res) => {
 
 //Login Member
 router.post('/connect', (req, res) => {
-    connection.query("SELECT * FROM `collaboraters` WHERE 1", (err, result) => {
+    const name = req.body.name_collaboraters
+    connection.query("SELECT * FROM `collaboraters` WHERE name_collaboraters = ?", name, (err, result) => {
         if (err) {
-            throw err;
+            console.log(err);
         }
-        const user = result.find(us => us.name_collaboraters === req.body.name_collaboraters);
-        if (user) {
-            const token = jwt.sign({ sub: user.id },"secretOrkey");
-            const { password, ...userwithoutPassword } = user;
+        let passwordIsValid = bcrypt.compareSync(req.body.password, result[0].password)
+        if (passwordIsValid) {
+            const token = jwt.sign({
+                sub: result[0].id_collaboraters
+            }, config.secret, {
+                expiresIn: 86400
+            });
             res.send({
-                ...userwithoutPassword,
+                name,
                 token
-                }
-            )
+            })
         }
 
     })
 });
 
 //Creation Member
-router.post('/create', (req, res) => {
+router.post('/create', isAuth, (req, res) => {
     const newCollaborater = req.body;
     const data = {
         ...newCollaborater,
@@ -56,7 +61,7 @@ router.post('/create', (req, res) => {
 });
 
 //Delete Member
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAuth, (req, res) => {
     const idCollaborater = req.params.id;
     connection.query('DELETE FROM collaboraters WHERE id_collaboraters = ?', [idCollaborater], (err) => {
         if (err) {

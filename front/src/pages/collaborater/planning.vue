@@ -11,7 +11,7 @@
           </select>
       </div>
       <div class="offset-5 col-2">
-        <label>Semaine</label>
+        <label>Semaine {{momentWeek}}</label>
         <select v-model="filterWeek" class="form-control">
           <option selected></option>
           <option v-bind:value="week" v-for="(week, i) in choiceWeek" :key="i">
@@ -37,6 +37,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+import moment from 'moment';
 
 export default {
   name: 'planningCollaborater',
@@ -44,7 +45,8 @@ export default {
     return {
       choiceWeek : 53,
       filterCollab: "",
-      filterWeek: "",
+      filterWeek: moment(new Date(), "MM-DD-YYYY").week(),
+      momentWeek: moment(new Date(), "MM-DD-YYYY").week(),
     }
   },
   computed: {

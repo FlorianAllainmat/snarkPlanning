@@ -38,26 +38,12 @@ export default {
   components: {
   },
   methods: {
-    connectCollab({ name_collaboraters = this.name, password = this.password }) {
-      axios
-        .post(`${connection}collaboraters/connect`, { name_collaboraters, password })
-        this.$router.push({
-          name: 'collaborater'
-        })
-        /* .then(col => {
-          if(col.data !== null) {
-            this.$router.push({
-              name: 'collaborater'
-            });
-          } else {
-            this.$router.push({
-              name: "LoginCollaborater"
-            })
-          }
-        }) */
-        /* .catch(function (error) {
-          console.log(error);
-        }) */
+    connectCollab({
+      name_collaboraters = this.name,
+      password = this.password }) {
+      this.$store.dispatch('connectCollaborater',  { name_collaboraters, password })
+      .then( () => this.$router.push({name: 'collaborater'}))
+      .catch(err => console.log(err))
     }
   },
   created() {

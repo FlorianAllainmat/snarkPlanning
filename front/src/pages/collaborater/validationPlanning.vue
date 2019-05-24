@@ -98,6 +98,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+import moment from 'moment';
 
 export default {
   name: 'validationPlanning',
@@ -108,7 +109,8 @@ export default {
       idCollab : "",
       idProject: "",
       nbTicket: 0,
-      week: 0,
+      week: moment(new Date(), "MM-DD-YYYY").week(),
+      momentWeek: moment(new Date(), "MM-DD-YYYY").week(),
       filterCollab: "",
     }
   },

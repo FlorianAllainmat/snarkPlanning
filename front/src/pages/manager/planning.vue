@@ -2,7 +2,19 @@
   <div class="planning">
     <div>
       <div class="row col-12">
-        <div class="offset-5 col-2 offset-5">
+        <div>
+          <table class="table">
+            <tr v-for="(tic, id) in filterVisuCollab" :key="id">
+              <th>
+                <div>{{tic.name_collaboraters}}</div>
+              </th>
+              <th>
+                <div>{{tic.nb_ticket}}</div>
+              </th>
+            </tr>
+          </table>
+        </div>
+        <div class=" col-2">
           <label>Collaborateur</label>
           <select v-model="filterCollab" class="form-control">
             <option selected></option>
@@ -17,7 +29,6 @@
           <button @click="putWeek(-1)" :value="-1">-</button>
         </div>
         <div class="col-2">
-          <label>Semaine</label>
           <select v-model="week" class="form-control">
             <option selected></option>
             <option v-bind:value="week" v-for="(week, i) in choiceWeek" :key="i">
@@ -98,18 +109,21 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+import moment from 'moment';
 
 export default {
   name: 'planningManager',
   data () {
     return {
-      choiceWeek : 53,
-      choiceTicket : 20,
-      idCollab : "",
+      choiceWeek: 53,
+      choiceTicket: 20,
+      idCollab: "",
       idProject: "",
       nbTicket: 0,
-      week: 0,
+      week: moment(new Date(), "MM-DD-YYYY").week(),
       filterCollab: "",
+      momentWeek: moment(new Date(), "MM-DD-YYYY").week(),
+      recapCollab: []
     }
   },
   computed: {
@@ -128,7 +142,21 @@ export default {
             return ticketsProgress
         }
     },
-        },
+    filterWeek() {
+      const ticketsProgress = this.$store.state.ticketsProgress.ticketsProgress;
+      if(this.week){
+        return ticketsProgress.filter(ticketCollab => ticketCollab.week === this.week)
+      }
+      return ticketsProgress
+    },
+    filterVisuCollab(){
+      console.log(this.recapCollab)
+      if(this.week){
+        return this.visuCollab().filter(visu => visu.week === this.week)
+      }
+      return this.visuCollab()
+    }
+  },
   components: {
   },
   methods: {
@@ -170,7 +198,20 @@ export default {
         nb_ticket : nb
       }
       this.$store.dispatch("putTicketsProgress", idLotTickets)
-    }
+    },
+    visuCollab() {
+      this.recapCollab = []
+      const ticketsProgress = this.$store.state.ticketsProgress.ticketsProgress;
+      ticketsProgress.forEach( ticket => {
+        let search = this.recapCollab.find(recap => recap.name_collaboraters  === ticket.name_collaboraters )
+        if(search !== undefined){
+          search.nb_ticket = search.nb_ticket + ticket.nb_ticket
+        } else {
+          this.recapCollab.push({name_collaboraters : ticket.name_collaboraters, nb_ticket : ticket.nb_ticket})
+        }
+      })
+    return this.recapCollab
+    },
   },
   created() {
     this.callAll()

@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import router from './router'
-import { Chrome } from 'vue-color'
+import Interceptor from "./interceptor";
 
 Vue.config.productionTip = false
 
-Vue.use(Chrome)
+Interceptor.define(this.$router);
 
 new Vue({
   el: '#app',

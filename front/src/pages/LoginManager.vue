@@ -38,26 +38,12 @@ export default {
   components: {
   },
   methods: {
-    connectManager({ name_manager = this.name, password = this.password }) {
-      axios
-        .post(`${connection}managers/connect`, { name_manager, password })
-        this.$router.push({
-          name: 'manager'
-        })
-        /* .then(man => {
-          if(man.data !== null) {
-            this.$router.push({
-              name: 'manager'
-            });
-          } else {
-            this.$router.push({
-              name: "LoginManager"
-            })
-          }
-        }) */
-        /* .catch(function (error) {
-          console.log(error);
-        }) */
+    connectManager({
+      name_manager = this.name,
+      password = this.password }) {
+      this.$store.dispatch('connectManager',  { name_manager, password })
+      .then( () => this.$router.push({name: 'manager'}))
+      .catch(err => console.log(err))
     }
   },
   created() {
